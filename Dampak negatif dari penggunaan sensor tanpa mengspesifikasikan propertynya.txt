@@ -1,0 +1,1 @@
+Pada sensor yg berbasis touch sensor class jika tak di aktifkan pemilihan propertynya maka dia akan mengecek semua object dan menaikan penggunaan physics-nya yg dapat membuat lag

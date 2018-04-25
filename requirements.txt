@@ -1,0 +1,7 @@
+minimun requirements:
+- Intel HD
+- Proc i3 m370
+- RAM 4GB
+- 350MB HDD
+- Windows 64bit
+
