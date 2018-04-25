@@ -1,0 +1,25 @@
+enemyIn_Radar_Sensor	>> if in radar tidak sama dengan own['tim'] >> kamus.aiobjek.addlistTarget
+
+enemyIn_Near_Sensor	>> if in near tidak sama dengan own['tim'] >> kamus.aiobjek.addlistTarget
+
+
+prioritas Dominasi
+if enemyIn_Radar_Sensor	or enemyIn_Near_Sensor:
+	from kamus.aiobjek.adlistTarget get the best target
+	engaged target
+
+else:
+	go to base yg tidak sama dengan status tim
+	capTheBase()
+
+
+prioritas death match
+if enemyIn_Radar_Sensor	or enemyIn_Near_Sensor:
+	from kamus.aiobjek.adlistTarget get the best target
+	engaged target
+
+else:
+	using teamlistofobjek
+	list target yg tidak sama tim
+	get random target dari list tersebut
+	engaged target

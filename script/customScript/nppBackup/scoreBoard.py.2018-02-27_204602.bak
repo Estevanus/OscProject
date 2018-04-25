@@ -1,0 +1,23 @@
+import triggerList
+#from mainscript import addScore
+import mainscript
+
+SCORE = 2
+SUICIDE = -2
+ASSIST = 1
+
+def init():
+	triggerList.onPlayerKilled.append(onPlayerKill)
+	#print(dir(mainscript))
+
+'''
+'''
+def onPlayerKill(victim, killer, weapon):
+	#cek = victim, killer, weapon , dir(victim)
+	#print('onPlayerKill info ' + str(cek))
+	if killer!= None:
+		isPlayer = mainscript.addScore(killer, SCORE)
+		if isPlayer == False:
+			mainscript.addScore(victim, SUICIDE)
+	else:
+		mainscript.addScore(victim, SUICIDE)

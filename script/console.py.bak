@@ -1,0 +1,34 @@
+import bge
+import var
+
+def showMouse():
+	bge.logic.mouse.visible = True
+	
+def hideMouse():
+	bge.logic.mouse.visible = False
+	
+def getMainCamPos():
+	cam = bge.logic.getCurrentScene().active_camera
+	print(cam.position)
+	
+def getVarSceneInfo():
+	print(var.scene)
+	
+def bullyMe():
+	var.botCommanderTeamA.cheatAttackPlayer()
+	var.botCommanderTeamB.cheatAttackPlayer()
+	print("cheat attack player is activated")
+	
+def tempStunAll():
+	pass
+	
+def bukaMenuMap():
+	for i in bge.logic.getSceneList():
+		if i.name == "inGame":
+			i.replace("menu_maps")
+
+def execute(cont):
+	own = cont.owner
+	kamus = var.globalDict
+	exec(own["Text"])
+	own['Text'] = ""

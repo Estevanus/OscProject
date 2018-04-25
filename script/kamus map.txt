@@ -1,0 +1,8 @@
+map	: nama_map
+
+objek	: objek_id	: -useBy
+
+control	: -control_figther	: key_binding
+
+time	: integer
+

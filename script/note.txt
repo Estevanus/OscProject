@@ -1,0 +1,78 @@
+c = a / b
+
+1 / 2 = 0.5
+a / b = c
+a = c * b
+b = a / c
+
+1 / 0.5
+
+v = iv / (damping*damping**(6-1))
+
+dik
+
+acc = 10ms
+s = 2 detik
+persentase_damping_in_decimal) = 50%
+
+damping = 1 / (1 - persentase_damping_in_decimal)
+v = ms / (damping*damping**(detik-1))
+
+lalu bagimana jika v = 0?
+berapa detik kah yg diperlukan agar v = 0?
+
+juga tes lagi menggunakan faktor ini
+drag = luas sisi / mass
+
+----------------------------------------------------
+seblum pasang persentase:
+
+v = 1 / (current_speed/initial_acc) * initial_acc
+current_speed = current_speed + v
+
+untuk 60 ticks per detik:
+current_speed = current_speed + v / 60
+
+penyederhanaannya:
+current_speed = current_speed + 1 / (current_speed/initial_acc) * initial_acc
+
+
+setelah memasang persentase:
+if self.forwardVelocity > 1.0:
+	if damping > 0.5:
+		ad = 1.0 - (damping - 0.5) * 2
+		v = ad * (initial_acc / self.forwardVelocity * initial_acc)
+	else:
+		ad = 1.0 - damping * 2
+		v = (initial_acc / self.forwardVelocity * initial_acc) * ad + (1 / (self.forwardVelocity/initial_acc) * initial_acc)
+	self.forwardVelocity = self.forwardVelocity + v / 60
+else:
+	self.forwardVelocity += initial_acc / 60
+
+----------------------------------------------------
+
+damping = 1 / (1 - 0.5)
+damping = 2
+
+v = 10 / (2*2**(2-1))
+v = 2.5 on 2nd seconds
+speedN = 17.5
+
+
+if s = 3 detik
+
+initialVelocity = 0
+
+speedAkhir = (10 / (2*2**(0-1))) + (10 / (2*2**(1-1))) + (10 / (2*2**(2-1))) + (10 / (2*2**(3-1)))
+
+
+speedAkhir = (10 / (2*2**(0-1))) + (10 / (2*2**(1-1))) + (10 / (2*2**(2-1))) + (10 / (2*2**(3-1))) + ... + (10 / (2*2**(n-1)))
+# -----------------
+
+speed = delta ms
+
+speed = ms * detik
+
+speed = 10 * 2
+
+speed = 20

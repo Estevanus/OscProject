@@ -1,0 +1,9 @@
+aiobject	: id objek	: -klas ai
+
+PCO_tim		: id		: tim_number
+
+object_target	: id objek	: target id
+
+basetim		: nama		: [tim, ukuran, waktuCap, waktuNetral]
+
+timbase		: tim		: nama

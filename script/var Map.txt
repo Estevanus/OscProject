@@ -1,0 +1,10 @@
+status : status
+
+lastAddedGameObjectId = objekID
+
+globalDict = {}
+
+scene = {}
+
+spawnLocations = {}
+isMapOpened = Boolean

@@ -1,0 +1,9 @@
+#place external script here example
+#import sample
+
+print('tes')
+
+def init():
+	#example
+	#sample.init()
+	pass

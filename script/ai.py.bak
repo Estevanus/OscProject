@@ -1,0 +1,681 @@
+import bge
+import var
+from math import radians, degrees, sqrt, sin, cos, asin, acos
+from mathutils import Vector, Color
+import gameobjects
+import weapons
+
+def enemyInBound(own, this_id):
+	scene = bge.logic.getCurrentScene()
+	
+	
+	near = own.sensors['Near']
+	
+	target = None
+	
+	#cek setiap 2 detik
+	allFrame = scene['time']
+	if allFrame % 120 == 0 and allFrame != 0:
+		for i in near.hitObjectList:
+			temp_target = id(i)
+			if temp_target in scene['PCO_tim']:
+				if scene['PCO_tim'][temp_target] != scene['PCO_tim'][this_id]:
+					if target == None:
+						target = [temp_target, own.getDistanceTo(i)]
+					else:
+						jarak = own.getDistanceTo(i)
+						if jarak < target[1]:
+							target = [temp_target, jarak]
+							
+	else:
+		target = 'scanning'
+	return target
+	
+def enemyInSight(own, this_id):
+	scene = bge.logic.getCurrentScene()
+	
+	
+	seen = own.sensors['Radar']
+	
+	target = None
+	
+	#cek setiap 2 detik
+	allFrame = scene['time']
+	if allFrame % 120 == 0 and allFrame != 0:
+		for i in seen.hitObjectList:
+			temp_target = id(i)
+			if temp_target in scene['PCO_tim']:
+				if scene['PCO_tim'][temp_target] != scene['PCO_tim'][this_id]:
+					if target == None:
+						target = [temp_target, own.getDistanceTo(i)]
+					else:
+						jarak = own.getDistanceTo(i)
+						if jarak < target[1]:
+							target = [temp_target, jarak]
+	else:
+		target = 'scanning'
+							
+	return target
+							
+				
+	
+def predik(attacker, target, bulletSpeed):
+
+	toTarget = target.position - attacker.position
+
+	a = target.worldLinearVelocity.dot(target.worldLinearVelocity) - (bulletSpeed * bulletSpeed)
+	b = 2 * target.worldLinearVelocity.dot(toTarget)
+	c = toTarget.dot(toTarget)
+
+	p = -b / (2 * a)
+	
+	#print(' -------------------------------------- ')
+	#print(' -------- Checking math domain -------- ')
+	#print([b, a, c])
+	#print(' -------------------------------------- ')
+	
+	q = sqrt((b * b) - 4 * a * c) / (2 * a)
+
+	t1 = p - q
+	t2 = p + q
+	t = 0.0
+
+	if t1 > t2 and t2 > 0:
+		t = t2
+	else:
+		t = t1
+
+	aimSpot = target.position + target.worldLinearVelocity * t
+	return aimSpot
+		
+def interceptPrediction(self, weapon, target):
+	if weapon.tipe == "linear":
+		p = predik(self, target, weapon.velocity)
+	else:
+		return target
+	return p
+	
+def serangTarget(own):
+	pass
+	
+	
+	
+
+class fighter:
+	def __init__(this, this_id):
+		this.this_id = this_id
+		this.sprint = False
+		this.maju = False
+		this.mundur = False
+		this.kiri = False
+		this.kanan = False
+		this.atas = False
+		this.bawah = False
+		this.turn = 0.0
+		this.mPos = [0.0, 0.0]
+		
+		this.maxForward = 1.0
+		
+		
+		
+	def run(this):
+		scene = bge.logic.getCurrentScene()
+		kamus = var.globalDict
+		own = scene.objects.from_id(this.this_id)
+	
+		#print("ai is running dengan objek " + str(this.this_id))
+		target = enemyInBound(own, this.this_id)
+		
+		terlihat = enemyInSight(own, this.this_id)
+		
+		
+		if terlihat != None:
+			if terlihat != 'scanning':
+				if terlihat[1] < target[1]:
+					target = terlihat
+		
+		if 'timbase' in scene:
+			pass
+		
+		
+		this.target = target
+		#this.target = terlihat
+		
+		if this.this_id not in kamus['object_target']:
+			kamus['object_target'][this.this_id] = None
+		
+		if target != 'scanning':
+			kamus['object_target'][this.this_id] = target
+		else:
+			if target == None:
+				kamus['object_target'][this.this_id] = None
+		
+		
+		#print(' -------------------------------------------- ')
+		#print(scene['object_target'][this.this_id])
+		#print(' -------------------------------------------- ')
+		
+		if kamus['object_target'][this.this_id] != None:
+			#execute search algoritma
+			#[atas, bawah, kiri, kanan, turn, maju, mundur, my]
+			targetObject = scene.objects.from_id(kamus['object_target'][this.this_id][0])
+			this.atas, this.bawah, this.kiri, this.kanan, this.turn, this.maju, this.mundur, this.mPos[1] = searchTarget(own, targetObject, this.maxForward)
+		else:
+			#disable search algoritma
+			pass
+			
+			
+class tank:
+	def __init__(this, this_id):
+		this.this_id = this_id
+		this.sprint = False
+		this.maju = False
+		this.mundur = False
+		this.kiri = False
+		this.kanan = False
+		this.atas = False
+		this.bawah = False
+		this.turn = 0.0
+		this.mPos = [0.0, 0.0]
+		
+		this.maxForward = 1.0
+		
+		
+		
+	def run(this):
+		scene = bge.logic.getCurrentScene()
+		kamus = var.globalDict
+		own = scene.objects.from_id(this.this_id)
+	
+		#print("ai is running dengan objek " + str(this.this_id))
+		target = enemyInBound(own, this.this_id)
+		
+		terlihat = enemyInSight(own, this.this_id)
+		
+		
+		if terlihat != None:
+			if terlihat != 'scanning':
+				if terlihat[1] < target[1]:
+					target = terlihat
+		
+		if 'timbase' in scene:
+			pass
+		
+		
+		this.target = target
+		#this.target = terlihat
+		
+		if this.this_id not in kamus['object_target']:
+			kamus['object_target'][this.this_id] = None
+		
+		if target != 'scanning':
+			kamus['object_target'][this.this_id] = target
+		else:
+			if target == None:
+				kamus['object_target'][this.this_id] = None
+		
+		
+		#print(' -------------------------------------------- ')
+		#print(scene['object_target'][this.this_id])
+		#print(' -------------------------------------------- ')
+		
+		if kamus['object_target'][this.this_id] != None:
+			#execute search algoritma
+			#[atas, bawah, kiri, kanan, turn, maju, mundur, my]
+			targetObject = scene.objects.from_id(kamus['object_target'][this.this_id][0])
+		else:
+			#disable search algoritma
+			pass
+
+def getBotList(team):
+	if team != "all":
+		return var.NPCList[team]
+class KX_BotCommander:
+	players = []
+	cacheFokusMoveTo = None
+	firstCommand = True
+	def __init__(self):
+		self.tiks = 0
+	def setTeam(self, team):
+		self.team = team
+	def cheatAttackPlayer(self):
+		t = var.player.team
+		if t != self.team:
+			self.players = getBotList(self.team)
+			for NPC in self.players:
+				NPC.destinedByCommander = [var.player, "goto"]
+	def fokusAttackTo(self, area):
+		for i in self.players:
+			i.destinedByCommander = [area, "attack"]
+	def fokusMoveTo(self, area):
+		if self.firstCommand == True:
+			self.players = getBotList(self.team)
+			self.firstCommand = False
+		#print("ok >>>>> " + str(self.players))
+		for i in self.players:
+			i.destinedByCommander = [area, "goto"]
+	def executeFirstMove(self):
+		if self.cacheFokusMoveTo != None:
+			for i in self.players:
+				i.destinedByCommander = [area, "goto"]
+	def updateStrategy(self):
+		pass
+	def run(self):
+		self.tiks += 1
+		
+def assignCommander(cont):
+	var.botCommanderTeamA = KX_BotCommander()
+	var.botCommanderTeamA.setTeam(1)
+	var.botCommanderTeamB = KX_BotCommander()
+	var.botCommanderTeamB.setTeam(2)
+	cont.activate(cont.actuators['State'])
+	
+def runBotCommanderA(cont):
+	var.botCommanderTeamA.run()
+def runBotCommanderB(cont):
+	var.botCommanderTeamB.run()
+	
+class KX_BotController(bge.types.KX_GameObject):
+	firstMoveTo = None
+	def __init__(self, old_owner):
+		self.watingTime = var.botWaitingTime
+		destinedByCommander = []#format [VectorGoTo, "reason"] . reason = attack, def, repair, dan sebagainya
+		enemy = None
+		enemyLastPos = None
+		pass
+		
+	def goToLastLoatPosition(self):
+		pass
+		
+	def findTheEnemyInCertainSeconds(self):
+		pass
+		
+	def fight(self):
+		pass
+		
+	def chaseTheEnemy(self):
+		if self.enemyLastPos != None:
+			if enemy.position == self.enemyLastPos:
+				self.fight()
+		self.enemyLastPos = enemy.position
+		
+	def run(self):
+		if self.enemy != None:
+			self.chaseTheEnemy()
+	
+def spawnTuBot(self):
+	''' old one
+	if self.isAllowToSpawn == True:
+		if self not in var.botAntrianForSpawn:
+			var.botAntrianForSpawn.append(self)
+	'''
+	if self.isAllowToSpawn == True:
+		if self.spawnLoc != None:
+			#print([self.spawnLoc.name, self.spawnLoc.inUse, self.spawnLoc.antrian.index(self), len(self.spawnLoc.antrian)])
+			if self in self.spawnLoc.antrian:
+			if self.spawnLoc.antrian.index(self) == 0 and self.spawnLoc.inUse == False:
+				for scene in bge.logic.getSceneList():
+					if scene.name == "inGame":
+						added = scene.addObject(var.teamPCO[self.team], self.spawnLoc)
+						added = gameobjects.KX_VehicleObject(added)
+						self.gameObject = added
+						#added.useBy = self
+						added.owner = self
+						weapons.setWeapons(added)
+						self.spawnLoc.delAntrian(self)
+						self.spawnLoc.inUse = True
+						break
+					else:
+						print("wrong scene on function spawnTuBot at ai.py")
+	pass
+class KX_BotVehicleController(bge.types.KX_GameObject):
+	isFirstMove = True
+	senseRadius = 200
+	targetDiketahui = False
+	team = 0
+	
+	#weapon section
+	lenOfArms = 0
+	
+	def __init__(self, old_owner):
+		#misc section
+		self.deathCount = 0
+		self.gameObject = None#objek yg akan dirasuki bot
+		self.team = 0#sementara dulu apply di tim 2
+		self.isHuman = False
+		self.isAllowToSpawn = False
+		self.spawnLoc = None
+		self.spawnTime = 15 * 60#default 15 detik dikalikan 60 ticks perdetik
+		self.ticks = 0
+		self.restPosition = self.position
+		self.hasGameObjectUpdated = False
+		
+		#flight control priority
+		self.flightStats = "needToTakeOff"
+		
+		#priority section
+		self.watingTime = var.botWaitingTime
+		self.destinedByCommander = []#format [VectorGoTo or objective object to go to, "reason"]
+		self.lastQuestByCommander = []# = last self.destinedByCommander
+		self.triggered = False#jika ada sesuatu yg memicuh prioritasnya sperti disuruh commander, ada teammatenya menunjukan lokasi musuh, dll maka triggerednya akan berubah true kemudian bot perlu mengecek prioritasnya lagi kemudian beraksi sesuai prioritas dan menonaktifkan kembali variable triggered untuk dipakai nanti
+		self.enemy = None
+		self.enemyLastPos = None
+		self.speedWhenNoOrder = 0.0
+		
+		#heading initialization section
+		self.xSdt = 0.0
+		self.ySdt = 0.0
+		self.zSdt = 0.0
+		
+	def goToLastLoatPosition(self):
+		pass
+		
+	def findTheEnemyInCertainSeconds(self):
+		pass
+		
+	def fight(self):
+		pass
+		
+	def chaseTheEnemy(self):
+		if self.enemyLastPos != None:
+			if enemy.position == self.enemyLastPos:
+				self.fight()
+		self.enemyLastPos = enemy.position
+		
+	def goToPosition(self):
+		pass
+		
+	def getAirPlaneTurnFactor(self):
+		pitchFactor = 1.0
+		rollFactor = 1.0
+		yawFactor = 1.0
+		if self.gameObject.localLinearVelocity.y < self.gameObject.speedToPitch:
+			pitchFactor = self.gameObject.localLinearVelocity.y / self.gameObject.speedToPitch
+		if self.gameObject.localLinearVelocity.y < self.gameObject.speedToRoll:
+			rollFactor = self.gameObject.localLinearVelocity.y / self.gameObject.speedToRoll
+		if self.gameObject.localLinearVelocity.y < self.gameObject.speedToYaw:
+			yawFactor = self.gameObject.localLinearVelocity.y / self.gameObject.speedToYaw
+		return (pitchFactor, rollFactor, yawFactor)
+	def resetHeading(self, axis):
+		if axis == "X":
+			self.xSdt = 0.0
+		if axis == "Y":
+			self.ySdt = 0.0
+		if axis == "Z":
+			self.zSdt = 0.0
+	def heading(self, sdt, axis="X"):
+		(pitchFactor, rollFactor, yawFactor) = self.getAirPlaneTurnFactor()
+		if axis == "X":
+			rot = 0.0
+			status = 0
+			xSdtTertambah = degrees(self.xSdt)+self.gameObject.botMaxRotX * pitchFactor
+			if xSdtTertambah < sdt:
+				ygDitambahkan = self.gameObject.botMaxRotX * pitchFactor
+				rot = ygDitambahkan
+				self.xSdt += ygDitambahkan
+				status = 1
+			elif xSdtTertambah == sdt:
+				rot = ygDitambahkan
+				self.xSdt += ygDitambahkan
+				status = 2
+			elif xSdtTertambah > sdt:
+				rot = 0.0
+				self.xSdt += radians(sdt) - self.xSdt
+				status = 2
+			else:
+				return False
+			
+			#print(self.xSdt)
+			if self.xSdt < sdt:
+				self.gameObject.applyRotation([rot, 0, 0], True)
+			else:
+				status = 3
+			return status#0 ialah false, 1 masih dalam proses, 2 pas selesai, 3 sdh lama selesai
+		
+	def trackTo(self, vektor, localPosition=False):
+		if self.gameObject.tipe == "airplane":
+			v = self.gameObject.getVectTo(vektor)
+			if localPosition == False:
+				mat = v[2]
+			else:
+				mat = v[1]
+			#print(mat)
+			try:
+				sdt = acos(mat[1])
+			except ZeroDivisionError:
+				sdt = 0
+			except ValueError:
+				sdt = 0
+			try:
+				s = mat[0]
+				if s < 0:
+					s *= -1
+				sdtY = asin(s)
+			except ZeroDivisionError:
+				print("zero division error when attempting to devide {0} against {1}".format(str(mat[0]), str(jarakY)))
+				sdtY = 0
+			try:
+				if mat[2] > 1:
+					sdtX = asin(1.0)
+					print("mat[2] has reach beyond 1.0 and it's currentValue is " + str(mat[2]))
+				else:
+					sdtX = asin(mat[2])
+			except ZeroDivisionError:
+				sdtX = 0
+			except ValueError:
+				sdtX = 0
+				
+			derajat = degrees(sdt)
+			derajatY = degrees(sdtY)
+			derajatX = degrees(sdtX)
+			#cek = [derajatX, mat, vektor]
+			#cek = mat
+			#print(cek)
+			#self['cek'] = str([cek])
+			#seksi pengecekan sisah rotasi untuk trackingnya bot plane
+			if var.ngecek == True:
+				self['sdtY'] = sdtY
+				self['degreeYLeft'] = derajatY
+				self['degreeXLeft'] = derajatX
+				self['degreeZLeft'] = derajat
+				self.addDebugProperty('degreeYLeft')
+				self.addDebugProperty('degreeXLeft')
+				self.addDebugProperty('degreeZLeft')
+			
+			rotZ = 0.0
+			rotY = 0.0
+			rotX = 0.0
+			
+			(pitchFactor, rollFactor, yawFactor) = self.getAirPlaneTurnFactor()
+			
+			if mat[0] < 0:
+				if derajat > self.gameObject.maxRotZ:
+					#self.applyRotation((0, 0, radians(self.speedZ)), True)
+					rotZ = self.gameObject.maxRotZ
+				else:
+					#self.applyRotation((0, 0, radians(derajat)), True)
+					rotZ = radians(derajat)
+					sdtY = 0.0
+				if sdtY > self.gameObject.maxRotY:
+					rotY = -self.gameObject.maxRotY
+				else:
+					rotY = -sdtY
+			if mat[0] > 0:
+				if derajat > self.gameObject.maxRotZ:
+					#self.applyRotation((0, 0, radians(-self.speedZ)), True)
+					rotZ = -self.gameObject.maxRotZ
+				else:
+					#self.applyRotation((0, 0, radians(-derajat)), True)
+					rotZ = radians(-derajat)
+					sdtY = 0.0
+				if sdtY > self.gameObject.maxRotY:
+					rotY = self.gameObject.maxRotY
+				else:
+					rotY = sdtY
+					
+			if mat[2] < 0.0:
+				#print(sdtX)
+				if sdtX < self.gameObject.maxRotX:
+					rotX = -self.gameObject.maxRotX
+				else:
+					rotX = -sdtX
+			if mat[2] > 0.0:
+				if sdtX > self.gameObject.maxRotX:
+					rotX = self.gameObject.maxRotX
+				else:
+					rotX = sdtX
+					
+			#print([pitchFactor, rollFactor, yawFactor])
+			self.gameObject.setAngularVelocity([rotX*pitchFactor, rotY*rollFactor, rotZ*yawFactor], True)
+			
+			return derajatX, derajatY, derajat
+	
+	def updateGameObjectData(self):
+		#script for update tu gameObject pe data
+		if 'speedWhenNoOrder' in self.gameObject:
+			try:
+				self.speedWhenNoOrder = self.gameObject['speedWhenNoOrder'] / 3.6
+				self.gameObject.angularDamping = 0.0#sementara, mungkin kan di ganti di masa depan nanti
+			except ZeroDivisionError:
+				self.speedWhenNoOrder = 0.0
+		if "senseRadius" in self.gameObject:
+			self.senseRadius = self.gameObject['senseRadius']
+			
+		#coloring red for B team
+		#mo kse beda warna for beda team mar ternyata karna dia pake mesh yang sama deng material yang sama maka dp hasil samua dapa :'v
+		
+		#weapkon section update
+		self.lenOfArms = len(self.gameObject.weapons)
+		if self.lenOfArms == 1:
+			if self.gameObject.currentWeapon == None:
+				self.gameObject.currentWeapon = self.gameObject.weapons[0]
+		
+	def setTargetBySensing(self, target, sens):
+		if hasattr(target, "owner"):
+			#print([self.team, target, target.owner.team])
+			if hasattr(target.owner, "team"):
+				if target.owner.team != self.team:
+					self.target = target
+					self.flightStats = "fighting"
+					self.targetDiketahui = sens.positive
+	def run(self):
+		#tahap spawn
+		if self.gameObject == None:
+			self.hasGameObjectUpdated = False
+			spawnTuBot(self)
+		else:
+			if self.gameObject.invalid == True:
+				self.hasGameObjectUpdated = False
+				spawnTuBot(self)
+				self.ticks = 0
+			else:
+				if self.hasGameObjectUpdated == False:
+					#initializing scrpit for bot gameObject
+					self.updateGameObjectData()
+					pass
+				self.hasGameObjectUpdated = True
+				# -------- Note --------
+				#mungkin nanti stw qt mo perlu pake tuh botAirPlaneSensingObject for bot awarness
+				# ----------------------
+				if self.gameObject.tipe == "airplane":
+					#bot for jetplane ------------
+					if var.ngecek == True:
+						status = 'status of ' + str(id(self)) + " of team " + str(self.team)
+						if status not in self:
+							self[status] = self.flightStats
+							self.addDebugProperty(status)
+						else:
+							self[status] = self.flightStats
+					
+					if self.flightStats == 'needToTakeOff':
+						self.gameObject.maju = 2
+						self.gameObject.runJetEngine()
+						#self.trackTo(self.gameObject.position + Vector((0, 30, 1)), True, False)
+						#h = self.heading(90)
+						self.trackTo(self.gameObject.position + Vector((0, 45, 45)) * self.gameObject.worldOrientation)
+						if self.ticks > self.gameObject.botTimeToFlight:
+							self.flightStats = "askingOrder"
+							self.restPosition = Vector(self.gameObject.position)
+					elif self.flightStats == "askingOrder":
+						if self.gameObject.localLinearVelocity.y < self.speedWhenNoOrder:
+							self.gameObject.maju = 2
+							self.gameObject.runJetEngine()
+						self.trackTo(self.restPosition)
+						#print("rest position on " + str(self.restPosition))
+						if self.isFirstMove == True:
+							if self.destinedByCommander != []:
+								self.isFirstMove = False
+								self.flightStats = "doingOrder"
+						if self.destinedByCommander != self.lastQuestByCommander:
+							self.flightStats = "doingOrder"
+					elif self.flightStats == "doingOrder":
+						if self.destinedByCommander[1] == "goto":
+							self.gameObject.maju = 2
+							self.gameObject.runJetEngine()
+							self.trackTo(self.destinedByCommander[0])
+							if var.ngecek == True:
+								self['trakKepada'] = str(self.destinedByCommander)
+								self.addDebugProperty('trakKepada')
+					elif self.flightStats == "fighting":
+						self.gameObject.maju = 2
+						self.gameObject.runJetEngine()
+						if self.target != None:
+							if self.target.invalid == False:
+								if self.gameObject.getDistanceTo(self.target) < self.senseRadius or self.targetDiketahui == True:
+									if self.lenOfArms > 1:
+										#algoritma untuk pergantian senjata bagi bot
+										pass
+									#print(self.gameObject.currentWeapon)
+									if self.gameObject.currentWeapon != None or self.gameObject.primaryWeapon != None:
+										if self.gameObject.primaryWeapon != None:
+											(xl, yl, zl) = self.trackTo(interceptPrediction(self, self.gameObject.primaryWeapon, self.target))
+											agl = self.gameObject.primaryWeapon.angleToShot
+										else:
+											(xl, yl, zl) = self.trackTo(interceptPrediction(self, self.gameObject.currentWeapon, self.target))
+											agl = self.gameObject.currentWeapon.angleToShot
+										if var.ngecek == True:
+											if 'dleft' not in self:
+												self['dleft'] = str([xl, zl])
+												self.addDebugProperty('dleft')
+											else:
+												self['dleft'] = str([xl, zl])
+											
+										if xl < agl and zl < agl:
+											if self.gameObject.primaryWeapon != None:
+												self.gameObject.primaryWeapon.checkFire(2)
+											if self.gameObject.currentWeapon != None:
+												if self.gameObject.currentWeapon.tipe == "heatSeekingMissile":
+													if self.gameObject.currentWeapon.lockOnStatus == 'locked':
+														self.gameObject.currentWeapon.checkFire(2)
+												else:
+													self.gameObject.currentWeapon.checkFire(2)
+												pass
+											#print("bot is trying to fire")
+										else:
+											if self.gameObject.primaryWeapon != None:
+												self.gameObject.primaryWeapon.checkFire(0)
+											if self.gameObject.currentWeapon != None:
+												self.gameObject.currentWeapon.checkFire(0)
+									else:
+										self.trackTo(self.target)
+								else:
+									self.flightStats = "doingOrder"
+							else:
+								self.flightStats = "doingOrder"
+						else:
+							self.flightStats = "doingOrder"
+						
+						self.lastQuestByCommander = self.destinedByCommander
+				if self.gameObject.tipe == "soldier":
+					if self.enemy != None:
+						self.chaseTheEnemy()
+				
+				self.ticks += 1
+				#----------------------------
+	
+'''
+def runBotCommanderTeamA(cont):
+	var.botCommanderTeamA.run()
+def runBotCommanderTeamB(cont):
+	var.botCommanderTeamB.run()
+'''

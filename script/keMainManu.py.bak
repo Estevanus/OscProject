@@ -1,0 +1,75 @@
+import bge
+import var
+import HUD
+import mainscript
+
+cont = bge.logic.getCurrentController()
+
+aktif = True
+for i in cont.sensors:
+	if i.positive == 0:
+		aktif = False
+
+try:
+	if aktif == True:
+		''' karnasudah ada di function pembersih
+		try:
+			print('removing HUD...')
+			HUD.end()
+			HUD.HUD = None
+		except AttributeError:
+			print('HUD may not exist, ignoring...')
+		'''
+		
+		#mainscript.bersihkanInGame(cont)
+		scenes = bge.logic.getSceneList()
+		for s in scenes:
+			if s.name == 'inGame':
+				scene = s
+				
+				print('temporary resuming the game...')
+				scene.resume()
+				
+				print('adding objek peng back to main menu...')
+				scene.addObject('peng back to main menu')
+				
+		kamus = var.globalDict
+		'''
+		print('making lookAt = None')
+		mainscript.lookAt = None
+		#global lookAt
+		#lookAt = None
+		
+		print('deleting the unused memory...')
+		kamus = var.globalDict
+		del kamus['aiobject']
+		del kamus['object_target']
+		#var.spawnLocations = {}
+		var.spawnLocations = []
+		var.destroyableObjective = [[], []]
+		var.objectsThatNeedToSpawn = {}
+		var.botCommanderTeamA = None
+		var.botCommanderTeamB = None
+		var.NPCList = [[], [], []]#0 for netral, 1 for team 1, 2 for team 2
+		var.scene = {}
+		var.player = None
+		var.lookAtObject = None
+		var.isFirstSpawn = True
+		var.botAntrianForSpawn = []
+		'''
+		
+		
+		print('deleting the libs...')
+		for i in bge.logic.LibList():
+			bge.logic.LibFree(i)
+		print('the libs has been cleared')
+		
+		'''
+		for i in cont.actuators:
+			cont.activate(i)
+		'''
+except:
+	print('There is something error at "keMainMenu.py" script')
+	traceback.print_exc()
+
+	

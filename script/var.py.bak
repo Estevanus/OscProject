@@ -1,0 +1,67 @@
+import bge
+
+ngecek = False
+
+#status  sperti loadgameobject, dll
+status = None
+
+#get last added gameobject ID to put enableler lookAt script
+lastAddedGameObjectId = None
+
+globalDict = {}
+scene = {}
+
+#variable dinamis nya map
+#spawnLocations = {}
+controlPoints = [[], [], []]#format [daftarNeutralCP, daftarTeam1CP, daftarTeam2CP]
+#spawnLocations = []
+spawnLocByTeam = [[], [], []]#ini perlu diupdate setiap kali ada spawn loc baru ataupun spawn loc yg menghilang bahkan juga ketika atribut team dari spawn loc diganti. Format 0 untuk netral, 1 for tim 1, 2 for tim 2
+spawnStrategy = "balance"#rencananya juga kalo misalnya mo beking agresif mungkin mo pake rupa prioritas spawn 1 atau 2 spawn terdekat objektif yg jadi prioritas utama for bot mo spawn akang
+mapKonfigurasi = {}
+isMapOpened = False
+teamAPCO = 'FighterAlo'
+teamBPCO = 'FighterAlo'
+teamPCO = [None, teamAPCO, teamBPCO]
+botPCO = [teamAPCO, teamBPCO]
+destroyableObjective = [[], [], []]#0 untuk kedua tim lawan cepat, 1 untuk tim 1, 2 untuk tim 2
+botCommanderTeamA = None
+botCommanderTeamB = None
+NPCList = [[], [], []]#0 for netral, 1 for team 1, 2 for team 2
+botWaitingTime = 180#in logic ticks
+#botAntrianForSpawn = []#may not be usable anymore
+#antrialForSpawn = {}#format spawnpoint = []
+totalTicks = 0
+totalTime = 0.0
+
+
+disableAllIngameControl = False#usage for when opening map or spawn map
+alwaysUseNewlyTakenItem = True
+
+#human player section var
+player = None
+isFirstSpawn = True
+lookAtObject = None
+penandaPlayer = "playerObject"
+PCO = None
+objectsInView = []#this might be remove later
+
+
+isSpawnMenuOpened = False
+
+
+#prefering vehicle
+spawnAs = "FighterAlo"
+
+#defaul mpas settings
+defaultMasaUdara = 1.293
+defaultGravity = -9.8
+
+#map setting
+masaUdara = 1.293
+gravity = -9.8
+
+#globalSettings
+soldierLookSensitivity = 1.0
+airPlaneMouseSensitivity = 1.0
+useImpulseFactor = True
+#isModded = False

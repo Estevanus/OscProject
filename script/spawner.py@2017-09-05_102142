@@ -1,0 +1,127 @@
+import bge
+import var
+from json import loads as muat
+from mathutils import Vector as vektor, Euler as eul
+import gameobjects
+from weapons import setWeapons
+import HUD
+
+mouse_is_shown = True
+
+spawnPoints = "spawnPoints.json"
+
+
+def cekKamus(cont):
+	own = cont.owner
+	kamus = var.globalDict
+	
+	if 'cekKamus' not in own:
+		own['cekKamus'] = "checked"
+		print(kamus)
+		
+
+def mutate(own, tipe="vehicle"):
+	old_object = own
+	
+	if tipe == 'vehicle':
+		mutated_object = gameobjects.KX_VehicleObject(own)
+		# After calling the constructor above, references to the old object
+		# should not be used.
+		assert(old_object is not mutated_object)
+		assert(old_object.invalid)
+		assert(mutated_object is own)
+
+def munculkan(cont):
+	if cont.sensors['Always'].positive:
+		scene = bge.logic.getCurrentScene()
+		
+		if 'PCO_tim' not in scene:
+			scene['PCO_tim'] = {}
+		
+		kamus = var.globalDict
+		own = cont.owner
+		
+		map = kamus['map'].split('.')
+		map = map[0]
+		
+		thislok = bge.logic.expandPath('//')
+		own['Nama Map'] = str(map)
+		
+		if 'mapKonfigurasi' not in own:
+			mc = thislok + "maps\\" + own['Nama Map'] + "\\mapConfigurasi.json"
+			own['mapKonfigurasi'] = True
+			var.mapKonfigurasi = muat(open(mc).read())
+			#var,mapKonfigurasi['jari2'] = var.mapKonfigurasi['dimensi']/2
+			print(var.mapKonfigurasi)
+			#posisi_unit_di_minimap = posisi_unit / jari2_map * jari2_minimap
+			
+		if 'getSpawnLocations' not in own:
+			spl = thislok + "maps\\" + own['Nama Map'] + "\\spawnPoints.json"
+			var.spawnLocations = muat(open(spl).read())
+			own['getSpawnLocations'] = muat(open(spl).read())
+			print(var.spawnLocations)
+		
+		
+		
+		#lok = "E:\\Program\\Software\\Aplikasi\\3d\\Blender\\bleder models\\Buatan Oscar\\MyGame\\test 00\\maps\\01\\spawner.json"
+		lok = thislok + "\\maps\\" + own['Nama Map'] + "\\spawner.json"
+		#start rem sini
+		
+		if 'robj' not in own:
+			own['robj'] = muat(open(lok).read())
+		else:
+			if 'startAdding' not in own:
+				print("..........................................")
+				print("begin spawning object...\n")
+				own['startAdding'] = None
+			remainingObj = len(own['robj']['isi'])
+			
+			if remainingObj > 0:
+				data = own['robj']['isi'][remainingObj-1]
+				print("Object tersisah ialah : " + str(remainingObj) + ' object')
+				own.position = data['pos']
+				Eul = eul(data['rot'])
+				own.worldOrientation = Eul.to_matrix()
+				if data['name'] in scene.objectsInactive:
+					added = scene.addObject(data['name'], own)
+					if type(added) == bge.types.KX_GameObject:
+						added = gameobjects.KX_VehicleObject(added)
+						var.lastAddedGameObjectId = id(added)
+						#mutate(added)
+					print('menambahkan objek ' + str(data['name']) + " dengan id " + str(added) + ' di posisi ' + str(own.position))
+					'''
+					if 'useBy' in data:
+						if added not in kamus['objek']:
+							kamus['objek'][added] = {}
+						kamus['objek'][added]['useBy'] = data['useBy']
+						added.useBy = data['useBy']
+						print("objek " + str (data['name']) + " digunakan oleh " + str(data['useBy']))
+					if 'tim' in data:
+						scene['PCO_tim'][added] = data['tim']
+					setWeapons(added)
+					'''
+				else:
+					print("object {0} not in scene".format(str(data['name'])))
+				
+				del own['robj']['isi'][remainingObj-1]
+			else:
+				if 'endAdding' not in own:
+					
+					print('\nend of spawning object')
+					print("..........................................")
+					own['endAdding'] = None
+					HUD.addUHD()
+					#print(scene.objects)
+					#print(bge.logic.getSceneList())
+					cekKamus(cont)
+					var.status = 'loadgameobject'
+					try:
+						obj = scene.objects.from_id(var.lastAddedGameObjectId)
+					except:
+						print("lastAddedGameObjectId not in scene")
+					#obj.addLookAt()
+					own.endObject()
+			
+		
+		#pberakhir disini
+		#own.endObject()

@@ -1,0 +1,46 @@
+import bge
+
+#status  sperti loadgameobject, dll
+status = None
+
+#get last added gameobject ID to put enableler lookAt script
+lastAddedGameObjectId = None
+
+globalDict = {}
+scene = {}
+
+spawnLocations = {}
+mapKonfigurasi = {}
+isMapOpened = False
+
+disableAllIngameControl = False#usage for when opening map or spawn map
+alwaysUseNewlyTakenItem = True
+
+player = None
+lookAtObject = None
+
+objectsThatNeedToSpawn = {}#format {"waktu_tersisah_untuk_spawn":[playerID0001, playerID002]}
+'''
+#brati dp script mo jadi rupa ini
+
+#Script untu mendaftarkan object
+#timeToSpawn is integer
+if timeToSpawn not in objectsThatNeedToSpawn:
+	objectsThatNeedToSpawn[timeToSpawn] = [playerID]
+else:
+	objectsThatNeedToSpawn[timeToSpawn].append[playerID]
+
+#script untuk mengupdate globalVar objectsThatNeedToSpawn dan mengeksekusinya
+temp = {}
+for i in objectsThatNeedToSpawn:
+	if i >= 0:
+		for j in objectsThatNeedToSpawn[i]:
+			spawn(j)
+	else:
+		detik = i - 1
+		temp[detik] = objectsThatNeedToSpawn[i]
+
+'''
+
+
+botWaitingTime = 180#in logic ticks

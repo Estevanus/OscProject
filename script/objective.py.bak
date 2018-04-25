@@ -1,0 +1,6 @@
+import bge
+import var
+
+def playerInsideCap(cont):
+	own = cont.owner
+	own.playerInsideCap(cont.sensors["capRadius"].hitObjectList)

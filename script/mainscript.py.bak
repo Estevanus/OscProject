@@ -1,0 +1,633 @@
+import bge
+import var
+import triggerList
+import HUD
+import traceback
+from json import loads as muat
+from math import radians, degrees
+from mathutils import Vector
+import sqlite3
+import ai
+import spawner
+import gameobjects
+
+lookAt = None
+#lookAtObject = None
+
+
+nope = bge.logic.KX_INPUT_NONE
+jaktif = bge.logic.KX_INPUT_JUST_ACTIVATED
+aktif = bge.logic.KX_INPUT_ACTIVE
+lepas = bge.logic.KX_INPUT_JUST_RELEASED
+
+class USER(str):
+	name = str
+	team = 0
+	spawnTime = 15*bge.logic.getLogicTicRate()
+	spawnLoc = None
+	ViewHitObjectList = []
+	viewObjectNeededToUpdate = False
+	gameObject = None
+	lockingObject = None
+	singleLockStats = None
+	isTracking = False
+	def __init__(self, old_owner):
+		pass
+		
+	def updateViewIndicator(daftar):
+		self.ViewHitObjectList = daftar
+		self.viewObjectNeededToUpdate = True
+		
+	def run(self):
+		if self.gameObject != None:
+			if self.gameObject.invalid == False:
+				if 'USER' not in self.gameObject:
+					self.gameObject['USER'] = True
+				self.gameObject.runPlayer()
+		
+def runUSER(cont):
+	var.PCO.run()
+
+def appendBase(cont):
+	own = cont.owner
+	scene = bge.logic.getCurrentScene()
+	
+	namaBase = str(own)
+	
+	if 'basetim' not in scene:
+		scene['basetim'] = {}
+	
+	tim = 0
+	ukuran = 1000.0
+	waktuCap = 15
+	waktuNetral = 15
+	
+	if 'tim' in own:
+		tim = own['tim']
+	if 'ukuran' in own:
+		ukuran = own['ukuran']
+	if 'waktuCap' in own:
+		waktuCap = own['waktuCap']
+	if 'waktuNetral' in own:
+		waktuNetral = own['waktuNetral']
+		
+	scene['basetim'][namaBase] = [tim, ukuran, waktuCap, waktuNetral]
+	
+	if 'timbase' not in scene:
+		scene['timbase'] = {}
+		
+	if tim not in scene['timbase']:
+		scene['timbase'][tim] = []
+		scene['timbase'][tim].append(namaBase)
+	else:
+		scene['timbase'][tim].append(namaBase)
+	
+	
+def timeInScene(cont):
+	'''
+	scene = bge.logic.getCurrentScene()
+	if 'time' not in scene:
+		scene['time'] = 0
+	else:
+		scene['time'] += 1
+	'''
+	var.totalTicks += 1
+class simpleObject:
+	invalid = True
+def deklarasi(cont):
+	kamus = var.globalDict
+	own = cont.owner
+	scene = own.scene
+	world = scene.world
+	#world.backgroundColor = [0.0, 0.0, 0.0]
+	if var.PCO == None:
+		var.PCO = USER("Pengguna")
+	if 'objek' not in var.scene:
+		var.scene['objek'] = {}
+	#var.player = simpleObject()
+	'''
+	if 'aiobject' not in kamus:
+		kamus['aiobject'] = {}
+	if 'object_target' not in kamus:
+		kamus['object_target'] = {}
+	if 'lookAtObject' not in var.scene:
+		var.scene['lookAtObject'] = None
+	'''
+	if 'lookAtRange' not in var.scene:
+		var.scene['lookAtRange'] = None
+	if 'rangeOfUse' not in kamus:
+		kamus['rangeOfUse'] = 1.5
+	if 'inGame' not in var.scene:
+		var.scene['inGame'] = None
+		
+	
+def setInGameScene(cont):
+	var.scene['inGame'] = cont.owner.scene
+	var.scene['camPosIsOn'] = None
+	var.scene['playerLookAtObject'] = None
+	var.scene['playerLookAtRange'] = None
+	var.scene['playerLookAtPosition'] = None
+
+def getControl(cont):
+	own = cont.owner
+	
+	kamus = var.globalDict
+	thislok = bge.logic.expandPath('//')
+	
+	#lok = thislok + "\\cfg\\control_fighter.json"
+	lok = thislok + "\\cfg\\control.json"
+	
+	control = muat(open(lok).read())
+	
+	#control_fighter = control['control_fighter']
+	
+	if 'control' not in kamus:
+		kamus['control'] = {}
+	for i in control:
+		#print(i)
+		if i not in kamus['control']:
+			kamus['control'][i] = {}
+		for j in control[i]:
+			exec("kamus['control']['{0}'][str(j)] = {1}".format(i, control[i][j]))
+	print(kamus)
+	#print(cekkey + " ialah : " + str(exec(cekkey)))
+	#exec("print(bge.events.AKEY)")
+	
+def centeringMouse(cont):
+	aktif = True
+	for i in cont.sensors:
+		if i.positive != 1:
+			aktif = False
+			
+	if aktif == True:
+		bge.render.setMousePosition(int(bge.render.getWindowWidth() / 2), int(bge.render.getWindowHeight() / 2))
+	
+
+def getID(cont):
+	own = cont.owner
+	dp_id = id(own)
+	
+	if 'a' not in own:
+		own['a'] = None
+		print(dp_id)
+	
+def cekKamus(cont):
+	own = cont.owner
+	kamus = var.globalDict
+	
+	if 'cekKamus' not in own:
+		own['cekKamus'] = "checked"
+		print(kamus)
+		
+def getLookAt(cont):
+	global lookAt
+	#global lookAtObject
+	scene = bge.logic.getCurrentScene()
+	mOver = cont.sensors['mOver']
+	ray = cont.sensors['ray']
+	'''
+	var.scene['playerLookAtObject'] = None
+	var.scene['playerLookAtRange'] = 0
+	'''
+	if var.player != None:
+		if ray.positive:
+			hitObject = ray.hitObject
+			var.scene['playerLookAtObject'] = hitObject
+			var.scene['playerLookAtRange'] = cont.owner.getDistanceTo(ray.hitPosition)
+			if 'useBy' in hitObject:
+				if hitObject['useBy'] != 'player':
+					var.scene['playerLookAtPosition'] = ray.hitPosition
+			else:
+				var.scene['playerLookAtPosition'] = ray.hitPosition
+		else:
+			var.scene['playerLookAtPosition'] = None
+		if mOver.positive:
+			hitObject = mOver.hitObject
+			#print(hitObject)
+			#var.scene['lookAtObject'] = hitObject
+			var.lookAtObject = hitObject
+			var.scene['lookAtRange'] = cont.owner.getDistanceTo(mOver.hitPosition)
+			#lookAtObject = hitObject
+			if 'useBy' in hitObject:
+				if mOver.hitObject['useBy'] != 'player':
+					lookAt = mOver.hitPosition
+			else:
+				lookAt = mOver.hitPosition
+			#lookAt = Vector((0, 50, 0))
+		else:
+			lookAt = None
+	
+minimapOpened = True	
+def HUD_replacer_stats(cont):
+	global minimapOpened
+	own = cont.owner
+	scene = bge.logic.getCurrentScene()
+	keyboard = bge.logic.keyboard
+	act1 = cont.actuators['minimap']
+	act2 = cont.actuators['crosshair']
+	keyev = keyboard.events
+	if keyev[bge.events.ENTERKEY] == jaktif:
+		if minimapOpened == False:
+			cont.deactivate(act2)
+			#act1.mesh = scene.objectsInactive['map plane'].meshes[0]
+			cont.activate(act1)
+			minimapOpened = True
+		else:
+			cont.deactivate(act1)
+			cont.activate(act2)
+			minimapOpened = False
+			
+def setEnvironmentLightning(cont):
+	own = cont.owner
+	if 'environmentLightning' in own:
+		scene = var.scene['inGame']
+		exec("scene.world.backgroundColor = " + own['environmentLightning'])
+
+def exitGame(cont):
+	scenes = bge.logic.getSceneList()
+	for s in scenes:
+		if s.name == 'inGame':
+			scene = s
+			
+			print('temporary resuming the game...')
+			scene.resume()
+			
+			print('adding objek pengeluar...')
+			scene.addObject('pengexit')
+			
+def bersihkanInGame(cont):
+	#disable pulse mode of all sensors of all objects
+	scene = bge.logic.getCurrentScene()
+	print('disabling usePosPulseMode of allObjects')
+	for i in scene.objects:
+		for j in i.sensors:
+			j.usePosPulseMode = False
+			
+	print("removing all objects parent in inGame scene...")
+	for i in scene.objects:
+		i.removeParent()
+		
+	try:
+		#removing scene HUD
+		print('removing HUD...')
+		HUD.end()
+	except AttributeError:
+		print('HUD may not exist, ignoring...')
+	
+	#end all of objects of scene
+	print('removing all objects...')
+	for i in scene.objects:
+		if i != cont.owner:
+				i.endObject()
+				
+	# - section of variables cleaning -
+	bersihkan = True
+	if bersihkan == True:
+		pass
+	# ---------------------------------
+	#cont.owner.endObject()
+def pengeluar(cont):
+	print('starting exiting sequence...')
+	
+	try:
+		'''
+		print('deleting the libs...')
+		for i in bge.logic.LibList():
+			bge.logic.LibFree(i)
+		print('the libs has been cleared')
+		'''
+		
+		print(bge.logic.LibList())
+		bersihkanInGame(cont)
+		print('exiting the game')
+		bge.logic.endGame()
+	except:
+		print("there's something error in the script mainscript.py on pengeluar(cont)")
+		traceback.print_exc()
+			
+def matikanPulseObjects(scene):
+	for i in scene.objects:
+		for j in i.sensors:
+			j.usePosPulseMode = False
+def bersihkanObjectDalamScene(cont, scene):
+	#end all of objects of scene
+	print('removing all objects...')
+	for i in scene.objects:
+		if i != cont.owner:
+				i.endObject()
+def pengQuitToMainMenu(cont):
+	#by object peng back to main menu
+	#bersihkanInGame(cont)
+	# - section of variables cleaning -
+	bersihkan = True
+	if bersihkan == True:
+		print("getting ingame scene and active scene to be freed")
+		inGameS = None
+		inGameMenuS = None
+		for s in bge.logic.getSceneList():
+			if s.name == "menu_ingame":
+				inGameMenuS = s
+				inGameMenuS.end()
+			if s.name == "inGame":
+				inGameS = s
+		print("disabling all objects pulse mode in inGame scene...")
+		matikanPulseObjects(inGameS)
+		
+		print("removing all objects parent in inGame scene...")
+		for i in inGameS.objects:
+			i.removeParent()
+		
+		print('making lookAt = None')
+		#mainscript.lookAt = None
+		global lookAt
+		lookAt = None
+		
+		print('deleting the unused memory...')
+		kamus = var.globalDict
+		#del kamus['aiobject']
+		#del kamus['object_target']
+		#var.spawnLocations = {}
+		var.totalTicks = 0
+		var.totalTime = 0.0
+		#var.spawnLocations = []
+		var.spawnLocByTeam = [[], [], []]
+		var.controlPoints = [[], [], []]#format [daftarNeutralCP, daftarTeam1CP, daftarTeam2CP]
+		var.destroyableObjective = [[], [], []]
+		var.objectsThatNeedToSpawn = {}
+		var.botCommanderTeamA = None
+		var.botCommanderTeamB = None
+		var.NPCList = [[], [], []]#0 for netral, 1 for team 1, 2 for team 2
+		for i in var.scene['bots']:
+			if i.invalid == False:
+				i.endObject()
+		if var.player != None:
+			if var.player.invalid == False:
+				var.player.endObject()
+				#var.player = simpleObject()
+		print("cek ingame scene objects")
+		if "FighterAlo" in inGameS.objects:
+			inGameS.objects['FighterAlo'].endObject()
+		print(inGameS.objects)
+		var.scene = {}
+		var.player = None
+		var.lookAtObject = None
+		var.isFirstSpawn = True
+		var.botAntrianForSpawn = []
+		
+		if HUD.HUD != None:
+			HUD.HUD.end()
+			HUD.HUD = None
+		'''
+		'''
+		print('deleting the libs...')
+		for i in bge.logic.LibList():
+			bge.logic.LibFree(i)
+			#mari ba debugging dulu tare
+			#cek = [type(i), i]
+			#print(str(cek))
+			pass
+		print('the libs has been cleared')
+		
+		#print("membersihkan sisah2 object dalam inGame scene...")
+		#bersihkanObjectDalamScene(cont, inGameS)
+		#print("done")
+		inGameS.replace("menu_maps")
+		
+	# ---------------------------------
+	
+'''
+def mouseMovement(own, maxRotasi, sensitivitas):
+	if 'count' not in own:
+		own['count'] = 0
+	ww = bge.render.getWindowWidth()
+	wh = bge.render.getWindowHeight()
+	mouse = bge.logic.mouse
+	own['mousePos'] = str(mouse.position)
+	
+	
+	if own['count'] > 30:
+		
+		pos = [0,0]
+		pos[0] = mouse.position[0] - 0.5
+		pos[1] = -(mouse.position[1] - 0.5)
+		
+				
+		
+		maxRotasi = radians(maxRotasi)
+		sensitivitas = radians(sensitivitas)
+		
+		rotasi = own.localAngularVelocity.x
+		rotasi2 = own.localAngularVelocity.y
+		
+		if rotasi > -maxRotasi or rotasi < maxRotasi:
+			rotasi += pos[1] * sensitivitas
+			
+		if rotasi2 > - -maxRotasi or rotasi2 < maxRotasi:
+			rotasi2 += pos[0] * sensitivitas
+			
+		own.localAngularVelocity.x = rotasi
+		own.localAngularVelocity.y = rotasi2
+	else:
+		own['count'] += 1
+		
+	bge.render.setMousePosition(int(bge.render.getWindowWidth() / 2), int(bge.render.getWindowHeight() / 2))
+'''
+
+def parentViewPointToCam(cont):
+	viewPoint = scene.objects['viewPoint']
+	if 'viewPoint' not in scene:
+		scene['viewPoint'] = viewPoint
+	cam = scene.active_camera
+	viewPoint.position = Vector([0, 20, 0])
+	viewPoint.setParent(cam)
+		
+
+def camPosHere(cont):
+	camera = bge.logic.getCurrentScene().objects['camPos']
+	porosKamera = bge.logic.getCurrentScene().objects['porosKamera']
+	own = cont.owner
+	
+	#print(" ------------------------ AAAAAAAAAAAAAAAAAAAA {0} --------------------------- ".format(str(own)))
+	
+	if 'camPos' in own:
+		porosKamera.position = own.position
+		porosKamera.worldOrientation = own.worldOrientation
+		#porosKamera.worldTransform = own.worldTransform
+		if 'terParent' not in own:
+			own['terParent'] = True
+			exec("camera.position = own.position + (own.worldOrientation * Vector(" + own['camPos'] + "))")
+			camera.setParent(porosKamera)
+			
+	else:
+		camera.position = own.position
+	#camera.worldOrientation = own.worldOrientation
+	
+def playerCamPosHere(cont):
+	camera = bge.logic.getCurrentScene().objects['camPos']
+	if 'player cam poros x' in bge.logic.getCurrentScene().objects:
+		porosKamera = bge.logic.getCurrentScene().objects['player cam poros x']
+		own = cont.owner
+		
+		#print(" ------------------------ AAAAAAAAAAAAAAAAAAAA {0} --------------------------- ".format(str(own)))
+		
+		if 'camPos' in own:
+			if 'terParent' not in own:
+				exec("camera.position = own.position + (own.worldOrientation * Vector(" + own['camPos'] + "))")
+				camera.setParent(porosKamera)
+				own['terParent'] = True
+	'''
+	Planning:
+	poros kamera diparent ke badan
+	kamera diparent ca poros camera
+	mouselook nya di taruh di poros camera
+	'''
+	
+def centeringMouse(cont):
+	bge.render.setMousePosition(int(bge.render.getWindowWidth() / 2), int(bge.render.getWindowHeight() / 2))
+	for i in cont.actuators:
+		cont.activate(i)
+	
+def konfirmEnabligMouseLook(cont):
+	print('enabling mouse look')
+	
+def tankCamPosHere(cont):
+	camera = bge.logic.getCurrentScene().objects['camPos']
+	#porosKamera = bge.logic.getCurrentScene().objects['porosKamera']
+	own = cont.owner
+	
+	#print(" ------------------------ AAAAAAAAAAAAAAAAAAAA {0} --------------------------- ".format(str(own)))
+	
+	if 'camPos' in own:
+		#porosKamera.position = own.position
+		#porosKamera.worldOrientation = own.worldOrientation
+		#porosKamera.worldTransform = own.worldTransform
+		if 'camPosIsOn' in var.scene:
+			#own['camPosIsParented'] = True
+			if var.scene['camPosIsOn'] != own:
+				var.scene['camPosIsOn'] = own
+				#exec("camera.position = own.position + (own.worldOrientation * Vector(" + own['camPos'] + "))")
+				#camera.worldOrientation = porosKamera.worldOrientation
+				#camera.setParent(porosKamera)
+				#look =  cont.actuators['Look']
+				#print('trying to enable mouse look')
+				#own.sendMessage('enableMouseLook', "", "porosKamera")
+				for i in own.childrenRecursive:
+					if 'setAsPrimaryCam' in i:
+						camera.position = i.position
+						camera.worldOrientation = i.worldOrientation
+						camera.setParent(i)
+						i['enableMouse'] = True
+						break
+			
+	else:
+		camera.position = own.position
+		#pass
+		
+def signSpawnPointInUse(cont):
+	own = cont.owner
+	if hasattr(own, "setInUse"):
+		own.setInUse()
+def signSpawnPointNotUse(cont):
+	own = cont.owner
+	if hasattr(own, "setNotUse"):
+		own.setNotUse()
+def cekSpawnPointIsUsed(cont):
+	own = cont.owner
+	if hasattr(own, "inUse"):
+		own.inUse = cont.sensors['Near'].positive
+		#print(own.inUse)
+	
+def PCO_vehicle(cont):
+	if var.status == 'loadgameobject':
+		own = cont.owner
+		#kamus = var.globalDict
+		
+		sen = cont.sensors
+		
+		#dp_id = id(own)
+		#print(var.scene)
+		#if 'objek' in var.scene:
+		#	if 'useBy' in var.scene['objek'][own]:
+		#useBy = var.scene['objek'][own]['useBy']
+		nosMaju = 5
+		maxForward = 0.1
+		forwardSpeed = 0.1
+		backwardSpeed = 0.1
+		
+		changeRot = 0.7
+		
+		
+		changeRot = radians(changeRot)
+		firstSpeed = own.worldLinearVelocity
+		fsForward = firstSpeed.length
+		
+		own['firstSpeed'] = str(fsForward)
+		own['forwardSpeed'] = str(own.localLinearVelocity.y)
+		'''
+		Note:
+		var.player has been freed, cannot use that variable
+		type of own is gameobjects.KX_VehicleObject
+		kemungkinan error di cara dia spawn
+		'''
+		#print(var.player)
+		if var.player == own:
+			#tankCamPosHere(cont)
+			#own.setCamPos()
+			own.runPlayer()
+		else:
+			pass
+			#cek if using by bot
+			print("object {0} is not use by user".format(str(id(own))))
+			if type(own) == gameobjects.KX_VehicleObject:
+				if own.owner != None:
+					if hasattr(own.owner, "isHuman"):
+						if own.owner.isHuman == False:
+							if 'bot state' in cont.actuators:
+								cont.activate(cont.actuators['bot state'])
+								print("changing state for object " + str(id(own)))
+								
+def botEyes(cont):
+	own = cont.owner
+	if "Radar" in cont.sensors:
+		if own == var.player:
+			#var.PCO.updateViewIndicator(cont.sensors['Radar'].hitObjectList)
+			var.objectsInView = list(cont.sensors['Radar'].hitObjectList)
+			#var.objectsInView = cont.sensors['Radar'].hitObjectList
+			for pemicuh in triggerList.onRadarUpdate:
+				pemicuh(cont.sensors['Radar'].hitObjectList)
+			#print(var.PCO.ViewHitObjectList)
+			pass
+		else:
+			if hasattr(own, "setTarget"):
+				own.setTarget(cont.sensors['Radar'].hitObject, cont.sensors['Radar'])
+				#print(cont.sensors['Radar'].positive)
+				pass
+
+def player_object(cont):
+	own = cont.owner
+	kamus = var.scene
+	if var.player == own:
+		#playerCamPosHere(cont)
+		if 'cont' not in own:
+			own['cont'] = cont
+		if 'hasRaySensor' not in own:
+			if 'Ray' in cont.sensors:
+				print("checking the availablelity of ray sensor in " + str(own))
+				if type(cont.sensors['Ray']) == bge.types.KX_RaySensor:
+					own.raySensor = cont.sensors['Ray']
+					print("applying Ray Sensor to object " + str(own))
+					own['hasRaySensor'] = True
+		own.runPlayer()
+	else:
+		pass
+		#cek if run by bot then
+		#	own.runBot()
+		#else:
+		#	hide and parent to something kind of vehicle
+		
+def botController(cont):
+	cont.owner.run()
+	
+		
+
+

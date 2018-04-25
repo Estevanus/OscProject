@@ -1,0 +1,20 @@
+
+#registering callback section list
+onSpawnLocAdded = []
+onSpawnLocDestroyed = []
+onSpawnLocChange = []
+
+onMapOpen = []
+onControlPointHasTaken = []
+onObjectiveHasDestroyed = []
+
+onWeaponShot = []
+onPlayerHit = []
+onPlayerChooseSpawn = []
+onPlayerJoin = []
+onPlayerSpawn = []
+onPlayerKilled = []
+
+onRadarUpdate = []
+onLockingUpdate = []
+#----------------------------
