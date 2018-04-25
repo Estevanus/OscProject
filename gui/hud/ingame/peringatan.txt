@@ -1,0 +1,2 @@
+Jangan buat folder yg sama dengan module pythonnya
+	karena dapat menyebabkan module tersebut untuk tidak berjalan lagi.
