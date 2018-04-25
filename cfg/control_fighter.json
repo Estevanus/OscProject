@@ -1,0 +1,12 @@
+{
+"maju":"bge.events.WKEY",
+"mundur":"bge.events.SKEY",
+"kiri":"bge.events.AKEY",
+"kanan":"bge.events.DKEY",
+"tembak":"bge.events.LEFTMOUSE",
+"tembak2":"bge.events.RIGHTMOUSE",
+"powerup":"bge.events.WHEELUPMOUSE",
+"powerdown":"bge.events.WHEELDOWNMOUSE",
+"changetarget":"bge.events.QKEY",
+"lainnya":"None"
+}

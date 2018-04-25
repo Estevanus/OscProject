@@ -1,0 +1,269 @@
+.OSCDB:
+assets database.oscdb by G. ESTEVANUS OSCAR TOREH
+
+
+.BLEND:
+assets_linker.blend by G. ESTEVANUS OSCAR TOREH
+Robo 45 Alter Story.blend by G. ESTEVANUS OSCAR TOREH
+alwaysShownInGameHUD.blend by G. ESTEVANUS OSCAR TOREH
+playerGUI.blend by G. ESTEVANUS OSCAR TOREH
+vehicleGUI.blend by G. ESTEVANUS OSCAR TOREH
+locked.blend by G. ESTEVANUS OSCAR TOREH
+airplaneHUD.blend by G. ESTEVANUS OSCAR TOREH
+tankPCOHUD.blend by G. ESTEVANUS OSCAR TOREH
+simple_crosshair.blend by G. ESTEVANUS OSCAR TOREH
+singleLockOnHUD.blend by G. ESTEVANUS OSCAR TOREH
+personalScoreboardHUD.blend by G. ESTEVANUS OSCAR TOREH
+pickerHUD.blend by G. ESTEVANUS OSCAR TOREH
+scoreboardHUD.blend by G. ESTEVANUS OSCAR TOREH
+options_gui.blend by G. ESTEVANUS OSCAR TOREH
+lampu berdiri.blend by G. ESTEVANUS OSCAR TOREH
+vas bunga 00.blend by G. ESTEVANUS OSCAR TOREH
+air_exp.blend by G. ESTEVANUS OSCAR TOREH
+simple_vexp.blend by G. ESTEVANUS OSCAR TOREH
+vexp_texture_master.blend by G. ESTEVANUS OSCAR TOREH
+jet_engine_thrust.blend by G. ESTEVANUS OSCAR TOREH
+test fire raw texture 00.blend by G. ESTEVANUS OSCAR TOREH
+pickerRoom.blend by HASSANALMALKI
+scoreBoard.blend by G. ESTEVANUS OSCAR TOREH
+00.blend by GROUP A
+01.blend by GROUP A
+robo_soldier.blend by G. ESTEVANUS OSCAR TOREH
+soldier.blend by G. ESTEVANUS OSCAR TOREH
+lemari besar 00.blend by G. ESTEVANUS OSCAR TOREH
+Lemari Kecil 00.blend by G. ESTEVANUS OSCAR TOREH
+meja 00.blend by GROUP A
+Sofa 00.blend by GROUP A
+lampu 001.blend by G. ESTEVANUS OSCAR TOREH
+keybox001.blend by G. ESTEVANUS OSCAR TOREH
+keybox001_textures.blend by G. ESTEVANUS OSCAR TOREH
+fire extinguisher.blend by HASSANALMALKI
+FighterAlo.blend by G. ESTEVANUS OSCAR TOREH
+Speed Fighter.blend by GROUP A
+tank.blend by G. ESTEVANUS OSCAR TOREH
+VC00.blend by G. ESTEVANUS OSCAR TOREH
+CV 00.blend by G. ESTEVANUS OSCAR TOREH
+deck uv map.blend by G. ESTEVANUS OSCAR TOREH
+simpleAutoCannonProjectile.blend by G. ESTEVANUS OSCAR TOREH
+simpleMissile.blend by G. ESTEVANUS OSCAR TOREH
+simpleMissile_dummy.blend by G. ESTEVANUS OSCAR TOREH
+script_initializer.blend by G. ESTEVANUS OSCAR TOREH
+mapFile.blend by G. ESTEVANUS OSCAR TOREH
+
+
+.TXT:
+Dampak negatif dari penggunaan sensor tanpa mengspesifikasikan propertynya.txt by HASSANALMALKI
+yg perlu mo tambah.txt by HASSANALMALKI
+
+
+.BLEND1:
+Robo 45 Alter Story.blend1 by G. ESTEVANUS OSCAR TOREH
+playerGUI.blend1 by G. ESTEVANUS OSCAR TOREH
+vehicleGUI.blend1 by G. ESTEVANUS OSCAR TOREH
+airplaneHUD.blend1 by G. ESTEVANUS OSCAR TOREH
+tankPCOHUD.blend1 by G. ESTEVANUS OSCAR TOREH
+simple_crosshair.blend1 by G. ESTEVANUS OSCAR TOREH
+singleLockOnHUD.blend1 by G. ESTEVANUS OSCAR TOREH
+personalScoreboardHUD.blend1 by G. ESTEVANUS OSCAR TOREH
+pickerHUD.blend1 by G. ESTEVANUS OSCAR TOREH
+scoreboardHUD.blend1 by G. ESTEVANUS OSCAR TOREH
+options_gui.blend1 by G. ESTEVANUS OSCAR TOREH
+lampu berdiri.blend1 by G. ESTEVANUS OSCAR TOREH
+vas bunga 00.blend1 by G. ESTEVANUS OSCAR TOREH
+air_exp.blend1 by G. ESTEVANUS OSCAR TOREH
+simple_vexp.blend1 by G. ESTEVANUS OSCAR TOREH
+vexp_texture_master.blend1 by G. ESTEVANUS OSCAR TOREH
+jet_engine_thrust.blend1 by G. ESTEVANUS OSCAR TOREH
+test fire raw texture 00.blend1 by G. ESTEVANUS OSCAR TOREH
+scoreBoard.blend1 by G. ESTEVANUS OSCAR TOREH
+robo_soldier.blend1 by G. ESTEVANUS OSCAR TOREH
+lemari besar 00.blend1 by G. ESTEVANUS OSCAR TOREH
+Lemari Kecil 00.blend1 by G. ESTEVANUS OSCAR TOREH
+lampu 001.blend1 by G. ESTEVANUS OSCAR TOREH
+keybox001.blend1 by G. ESTEVANUS OSCAR TOREH
+keybox001_textures.blend1 by G. ESTEVANUS OSCAR TOREH
+fire extinguisher.blend1 by HASSANALMALKI
+FighterAlo.blend1 by G. ESTEVANUS OSCAR TOREH
+tank.blend1 by G. ESTEVANUS OSCAR TOREH
+CV 00.blend1 by G. ESTEVANUS OSCAR TOREH
+deck uv map.blend1 by G. ESTEVANUS OSCAR TOREH
+simpleAutoCannonProjectile.blend1 by G. ESTEVANUS OSCAR TOREH
+simpleMissile.blend1 by G. ESTEVANUS OSCAR TOREH
+simpleMissile_dummy.blend1 by G. ESTEVANUS OSCAR TOREH
+script_initializer.blend1 by G. ESTEVANUS OSCAR TOREH
+mapFile.blend1 by G. ESTEVANUS OSCAR TOREH
+
+
+.BLEND2:
+Robo 45 Alter Story.blend2 by G. ESTEVANUS OSCAR TOREH
+playerGUI.blend2 by G. ESTEVANUS OSCAR TOREH
+vehicleGUI.blend2 by G. ESTEVANUS OSCAR TOREH
+airplaneHUD.blend2 by G. ESTEVANUS OSCAR TOREH
+tankPCOHUD.blend2 by G. ESTEVANUS OSCAR TOREH
+simple_crosshair.blend2 by G. ESTEVANUS OSCAR TOREH
+singleLockOnHUD.blend2 by G. ESTEVANUS OSCAR TOREH
+personalScoreboardHUD.blend2 by G. ESTEVANUS OSCAR TOREH
+pickerHUD.blend2 by G. ESTEVANUS OSCAR TOREH
+scoreboardHUD.blend2 by G. ESTEVANUS OSCAR TOREH
+options_gui.blend2 by G. ESTEVANUS OSCAR TOREH
+lampu berdiri.blend2 by G. ESTEVANUS OSCAR TOREH
+vas bunga 00.blend2 by G. ESTEVANUS OSCAR TOREH
+air_exp.blend2 by G. ESTEVANUS OSCAR TOREH
+simple_vexp.blend2 by G. ESTEVANUS OSCAR TOREH
+vexp_texture_master.blend2 by G. ESTEVANUS OSCAR TOREH
+jet_engine_thrust.blend2 by G. ESTEVANUS OSCAR TOREH
+test fire raw texture 00.blend2 by G. ESTEVANUS OSCAR TOREH
+scoreBoard.blend2 by G. ESTEVANUS OSCAR TOREH
+robo_soldier.blend2 by G. ESTEVANUS OSCAR TOREH
+lemari besar 00.blend2 by G. ESTEVANUS OSCAR TOREH
+Lemari Kecil 00.blend2 by G. ESTEVANUS OSCAR TOREH
+lampu 001.blend2 by G. ESTEVANUS OSCAR TOREH
+keybox001.blend2 by G. ESTEVANUS OSCAR TOREH
+keybox001_textures.blend2 by G. ESTEVANUS OSCAR TOREH
+fire extinguisher.blend2 by HASSANALMALKI
+FighterAlo.blend2 by G. ESTEVANUS OSCAR TOREH
+tank.blend2 by G. ESTEVANUS OSCAR TOREH
+CV 00.blend2 by G. ESTEVANUS OSCAR TOREH
+deck uv map.blend2 by G. ESTEVANUS OSCAR TOREH
+simpleAutoCannonProjectile.blend2 by G. ESTEVANUS OSCAR TOREH
+simpleMissile.blend2 by G. ESTEVANUS OSCAR TOREH
+simpleMissile_dummy.blend2 by G. ESTEVANUS OSCAR TOREH
+script_initializer.blend2 by G. ESTEVANUS OSCAR TOREH
+mapFile.blend2 by G. ESTEVANUS OSCAR TOREH
+
+
+.MP3:
+Game Music.mp3 by G. ESTEVANUS OSCAR TOREH
+joining_the_battle.mp3 by HASSANALMALKI
+warning_map_is_null.mp3 by G. ESTEVANUS OSCAR TOREH
+win.mp3 by G. ESTEVANUS OSCAR TOREH
+Blastwave_FX_ExplosionCrash_S08WA.132.mp3 by GROUP A
+
+
+.FLP:
+joining_the_battle.flp by G. ESTEVANUS OSCAR TOREH
+lose.flp by G. ESTEVANUS OSCAR TOREH
+warning_map_is_null.flp by G. ESTEVANUS OSCAR TOREH
+win.flp by G. ESTEVANUS OSCAR TOREH
+air explosion.flp by G. ESTEVANUS OSCAR TOREH
+jet distance.flp by G. ESTEVANUS OSCAR TOREH
+missile engine.flp by G. ESTEVANUS OSCAR TOREH
+projectile flyby.flp by G. ESTEVANUS OSCAR TOREH
+
+
+.OGG:
+locked.ogg by G. ESTEVANUS OSCAR TOREH
+
+
+.JSON:
+control.json by G. ESTEVANUS OSCAR TOREH
+control_fighter.json by G. ESTEVANUS OSCAR TOREH
+mapConfigurasi.json by G. ESTEVANUS OSCAR TOREH
+
+
+.PNG:
+locked.png by G. ESTEVANUS OSCAR TOREH
+small white plus.png by G. ESTEVANUS OSCAR TOREH
+kotak.png by G. ESTEVANUS OSCAR TOREH
+lockOn_color_map.png by G. ESTEVANUS OSCAR TOREH
+suriken_mungkin.png by G. ESTEVANUS OSCAR TOREH
+suriken_mungkin_alphamap.png by G. ESTEVANUS OSCAR TOREH
+test fire raw 00 alpha map.png by G. ESTEVANUS OSCAR TOREH
+test fire raw 00.png by G. ESTEVANUS OSCAR TOREH
+test fire raw 01.png by G. ESTEVANUS OSCAR TOREH
+keybox001.png by G. ESTEVANUS OSCAR TOREH
+keybox001_emissionMap.png by G. ESTEVANUS OSCAR TOREH
+FireExtinguisher_D.png by HASSANALMALKI
+FireExtinguisher_N 2.png by HASSANALMALKI
+FireExtinguisher_N.png by HASSANALMALKI
+FireExtinguisher_N3.png by HASSANALMALKI
+bridge color map.png by G. ESTEVANUS OSCAR TOREH
+deck color map.png by G. ESTEVANUS OSCAR TOREH
+deck UB map.png by G. ESTEVANUS OSCAR TOREH
+atlas coloured image.png by G. ESTEVANUS OSCAR TOREH
+atlas.png by G. ESTEVANUS OSCAR TOREH
+TextureAtlas.png by G. ESTEVANUS OSCAR TOREH
+generic crosshair.png by G. ESTEVANUS OSCAR TOREH
+
+
+.AVI:
+Intro.avi by G. ESTEVANUS OSCAR TOREH
+
+
+.WAV:
+air explosion.wav by G. ESTEVANUS OSCAR TOREH
+jet distance.wav by G. ESTEVANUS OSCAR TOREH
+missile engine.wav by G. ESTEVANUS OSCAR TOREH
+projectile flyby.wav by G. ESTEVANUS OSCAR TOREH
+
+
+.PSD:
+keybox001_emissionMap.psd by G. ESTEVANUS OSCAR TOREH
+keybox001_normalMap.psd by G. ESTEVANUS OSCAR TOREH
+
+
+.DDS:
+FireExtinguisher_N.dds by HASSANALMALKI
+
+
+.RAR:
+tank.rar by G. ESTEVANUS OSCAR TOREH
+VC00 backup.rar by G. ESTEVANUS OSCAR TOREH
+
+
+.PY:
+ai.py by G. ESTEVANUS OSCAR TOREH
+checker.py by G. ESTEVANUS OSCAR TOREH
+console.py by G. ESTEVANUS OSCAR TOREH
+db.py by G. ESTEVANUS OSCAR TOREH
+gameobjects.py by G. ESTEVANUS OSCAR TOREH
+HUD.py by G. ESTEVANUS OSCAR TOREH
+keMainManu.py by G. ESTEVANUS OSCAR TOREH
+mainscript.py by G. ESTEVANUS OSCAR TOREH
+make bytes.py by GROUP A
+movement.py by G. ESTEVANUS OSCAR TOREH
+objective.py by G. ESTEVANUS OSCAR TOREH
+openMap.py by G. ESTEVANUS OSCAR TOREH
+options.py by G. ESTEVANUS OSCAR TOREH
+osckey.py by G. ESTEVANUS OSCAR TOREH
+oscmath.py by G. ESTEVANUS OSCAR TOREH
+picker.py by G. ESTEVANUS OSCAR TOREH
+spawner.py by G. ESTEVANUS OSCAR TOREH
+story.py by G. ESTEVANUS OSCAR TOREH
+triggerHandling.py by G. ESTEVANUS OSCAR TOREH
+triggerList.py by G. ESTEVANUS OSCAR TOREH
+var.py by G. ESTEVANUS OSCAR TOREH
+videoPlayer.py by G. ESTEVANUS OSCAR TOREH
+weapons.py by G. ESTEVANUS OSCAR TOREH
+scoreBoard.py by G. ESTEVANUS OSCAR TOREH
+__init__.py by G. ESTEVANUS OSCAR TOREH
+database.py by G. ESTEVANUS OSCAR TOREH
+
+
+.PY@2017-12-21_192705:
+gameobjects.py@2017-12-21_192705 by G. ESTEVANUS OSCAR TOREH
+
+
+.PY@2018-01-15_194702:
+HUD.py@2018-01-15_194702 by G. ESTEVANUS OSCAR TOREH
+
+
+.BAT:
+make bytes.bat by G. ESTEVANUS OSCAR TOREH
+
+
+.PY@2017-09-05_102142:
+spawner.py@2017-09-05_102142 by G. ESTEVANUS OSCAR TOREH
+
+
+.PY@2017-11-19_155306:
+var.py@2017-11-19_155306 by G. ESTEVANUS OSCAR TOREH
+
+
+.PYC:
+scoreBoard.cpython-35.pyc by GROUP A
+
+
+.EXE:
+DatabaseManagement.exe by G. ESTEVANUS OSCAR TOREH
+
