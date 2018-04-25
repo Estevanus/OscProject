@@ -1,0 +1,10 @@
+Ajungan/Bridge :
+	Seats:
+		Captain
+		Pilot
+		Radar operator
+		Main gun Commander
+		Secondary gun commander
+		AA gun commander
+		Missile Instruktor
+		Ship and crew instruktor
