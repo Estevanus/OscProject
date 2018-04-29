@@ -24,22 +24,22 @@ simple_vexp.blend by G. ESTEVANUS OSCAR TOREH
 vexp_texture_master.blend by G. ESTEVANUS OSCAR TOREH
 jet_engine_thrust.blend by G. ESTEVANUS OSCAR TOREH
 test fire raw texture 00.blend by G. ESTEVANUS OSCAR TOREH
-pickerRoom.blend by HASSANALMALKI
+pickerRoom.blend by G. ESTEVANUS OSCAR TOREH
 scoreBoard.blend by G. ESTEVANUS OSCAR TOREH
-00.blend by GROUP A
-01.blend by GROUP A
+00.blend by COPYRIGHT TO OWNER
+01.blend by COPYRIGHT TO OWNER
 robo_soldier.blend by G. ESTEVANUS OSCAR TOREH
 soldier.blend by G. ESTEVANUS OSCAR TOREH
 lemari besar 00.blend by G. ESTEVANUS OSCAR TOREH
 Lemari Kecil 00.blend by G. ESTEVANUS OSCAR TOREH
-meja 00.blend by GROUP A
-Sofa 00.blend by GROUP A
+meja 00.blend by G. ESTEVANUS OSCAR TOREH
+Sofa 00.blend by G. ESTEVANUS OSCAR TOREH
 lampu 001.blend by G. ESTEVANUS OSCAR TOREH
 keybox001.blend by G. ESTEVANUS OSCAR TOREH
 keybox001_textures.blend by G. ESTEVANUS OSCAR TOREH
 fire extinguisher.blend by HASSANALMALKI
 FighterAlo.blend by G. ESTEVANUS OSCAR TOREH
-Speed Fighter.blend by GROUP A
+Speed Fighter.blend by G. ESTEVANUS OSCAR TOREH
 tank.blend by G. ESTEVANUS OSCAR TOREH
 VC00.blend by G. ESTEVANUS OSCAR TOREH
 CV 00.blend by G. ESTEVANUS OSCAR TOREH
@@ -49,10 +49,24 @@ simpleMissile.blend by G. ESTEVANUS OSCAR TOREH
 simpleMissile_dummy.blend by G. ESTEVANUS OSCAR TOREH
 script_initializer.blend by G. ESTEVANUS OSCAR TOREH
 mapFile.blend by G. ESTEVANUS OSCAR TOREH
+Big Room.blend by G. ESTEVANUS OSCAR TOREH
+Death Center.blend by G. ESTEVANUS OSCAR TOREH
+High Performance PC Only.blend by G. ESTEVANUS OSCAR TOREH
+Ruangan Bergerak 00.blend by FULL COPYRIGHT TO OWNER
+Test City.blend by G. ESTEVANUS OSCAR TOREH
+test map 2.blend by G. ESTEVANUS OSCAR TOREH
+test map.blend by G. ESTEVANUS OSCAR TOREH
+Training Mission 2.blend by G. ESTEVANUS OSCAR TOREH
+Training Mission.blend by G. ESTEVANUS OSCAR TOREH
+lensFlare001.blend by COPYRIGHT TO OWNER
 
 
 .TXT:
 Dampak negatif dari penggunaan sensor tanpa mengspesifikasikan propertynya.txt by HASSANALMALKI
+init movie.txt by FULL COPYRIGHT TO OWNER
+main menu video list.txt by FULL COPYRIGHT TO OWNER
+menu maps video list.txt by FULL COPYRIGHT TO OWNER
+requirements.txt by FULL COPYRIGHT TO OWNER
 yg perlu mo tambah.txt by HASSANALMALKI
 
 
@@ -75,7 +89,9 @@ simple_vexp.blend1 by G. ESTEVANUS OSCAR TOREH
 vexp_texture_master.blend1 by G. ESTEVANUS OSCAR TOREH
 jet_engine_thrust.blend1 by G. ESTEVANUS OSCAR TOREH
 test fire raw texture 00.blend1 by G. ESTEVANUS OSCAR TOREH
+pickerRoom.blend1 by G. ESTEVANUS OSCAR TOREH
 scoreBoard.blend1 by G. ESTEVANUS OSCAR TOREH
+00.blend1 by COPYRIGHT TO OWNER
 robo_soldier.blend1 by G. ESTEVANUS OSCAR TOREH
 lemari besar 00.blend1 by G. ESTEVANUS OSCAR TOREH
 Lemari Kecil 00.blend1 by G. ESTEVANUS OSCAR TOREH
@@ -92,6 +108,8 @@ simpleMissile.blend1 by G. ESTEVANUS OSCAR TOREH
 simpleMissile_dummy.blend1 by G. ESTEVANUS OSCAR TOREH
 script_initializer.blend1 by G. ESTEVANUS OSCAR TOREH
 mapFile.blend1 by G. ESTEVANUS OSCAR TOREH
+Big Room.blend1 by G. ESTEVANUS OSCAR TOREH
+SecondCity.blend1 by G. ESTEVANUS OSCAR TOREH
 
 
 .BLEND2:
@@ -113,6 +131,7 @@ simple_vexp.blend2 by G. ESTEVANUS OSCAR TOREH
 vexp_texture_master.blend2 by G. ESTEVANUS OSCAR TOREH
 jet_engine_thrust.blend2 by G. ESTEVANUS OSCAR TOREH
 test fire raw texture 00.blend2 by G. ESTEVANUS OSCAR TOREH
+pickerRoom.blend2 by G. ESTEVANUS OSCAR TOREH
 scoreBoard.blend2 by G. ESTEVANUS OSCAR TOREH
 robo_soldier.blend2 by G. ESTEVANUS OSCAR TOREH
 lemari besar 00.blend2 by G. ESTEVANUS OSCAR TOREH
@@ -130,6 +149,7 @@ simpleMissile.blend2 by G. ESTEVANUS OSCAR TOREH
 simpleMissile_dummy.blend2 by G. ESTEVANUS OSCAR TOREH
 script_initializer.blend2 by G. ESTEVANUS OSCAR TOREH
 mapFile.blend2 by G. ESTEVANUS OSCAR TOREH
+Big Room.blend2 by G. ESTEVANUS OSCAR TOREH
 
 
 .MP3:
@@ -137,7 +157,7 @@ Game Music.mp3 by G. ESTEVANUS OSCAR TOREH
 joining_the_battle.mp3 by HASSANALMALKI
 warning_map_is_null.mp3 by G. ESTEVANUS OSCAR TOREH
 win.mp3 by G. ESTEVANUS OSCAR TOREH
-Blastwave_FX_ExplosionCrash_S08WA.132.mp3 by GROUP A
+Blastwave_FX_ExplosionCrash_S08WA.132.mp3 by FULL COPYRIGHT TO OWNER
 
 
 .FLP:
@@ -184,6 +204,7 @@ atlas coloured image.png by G. ESTEVANUS OSCAR TOREH
 atlas.png by G. ESTEVANUS OSCAR TOREH
 TextureAtlas.png by G. ESTEVANUS OSCAR TOREH
 generic crosshair.png by G. ESTEVANUS OSCAR TOREH
+lensFlaretex.png by FULL COPYRIGHT TO OWNER
 
 
 .AVI:
@@ -204,6 +225,7 @@ keybox001_normalMap.psd by G. ESTEVANUS OSCAR TOREH
 
 .DDS:
 FireExtinguisher_N.dds by HASSANALMALKI
+glow_anistrophic_tex.dds by FULL COPYRIGHT TO OWNER
 
 
 .RAR:
@@ -220,7 +242,7 @@ gameobjects.py by G. ESTEVANUS OSCAR TOREH
 HUD.py by G. ESTEVANUS OSCAR TOREH
 keMainManu.py by G. ESTEVANUS OSCAR TOREH
 mainscript.py by G. ESTEVANUS OSCAR TOREH
-make bytes.py by GROUP A
+make bytes.py by G. ESTEVANUS OSCAR TOREH
 movement.py by G. ESTEVANUS OSCAR TOREH
 objective.py by G. ESTEVANUS OSCAR TOREH
 openMap.py by G. ESTEVANUS OSCAR TOREH
@@ -261,7 +283,7 @@ var.py@2017-11-19_155306 by G. ESTEVANUS OSCAR TOREH
 
 
 .PYC:
-scoreBoard.cpython-35.pyc by GROUP A
+scoreBoard.cpython-35.pyc by G. ESTEVANUS OSCAR TOREH
 
 
 .EXE:
