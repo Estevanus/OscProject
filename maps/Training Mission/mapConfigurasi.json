@@ -1,0 +1,9 @@
+{"center":[0,0,0],
+"jari2":3000,
+"dimensi":6000,
+"gravity":-9.8,
+"masaUdara":1.25,
+"botAssigning":[2, 3],
+"tickets":["inf", 5, 5],
+"balance":0.0
+}
