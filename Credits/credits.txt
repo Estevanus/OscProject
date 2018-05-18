@@ -62,12 +62,12 @@ lensFlare001.blend by COPYRIGHT TO OWNER
 
 
 .TXT:
-Dampak negatif dari penggunaan sensor tanpa mengspesifikasikan propertynya.txt by HASSANALMALKI
+Dampak negatif dari penggunaan sensor tanpa mengspesifikasikan propertynya.txt by G. ESTEVANUS OSCAR TOREH
 init movie.txt by FULL COPYRIGHT TO OWNER
 main menu video list.txt by FULL COPYRIGHT TO OWNER
 menu maps video list.txt by FULL COPYRIGHT TO OWNER
 requirements.txt by FULL COPYRIGHT TO OWNER
-yg perlu mo tambah.txt by HASSANALMALKI
+yg perlu mo tambah.txt by G. ESTEVANUS OSCAR TOREH
 
 
 .BLEND1:
@@ -154,10 +154,11 @@ Big Room.blend2 by G. ESTEVANUS OSCAR TOREH
 
 .MP3:
 Game Music.mp3 by G. ESTEVANUS OSCAR TOREH
-joining_the_battle.mp3 by HASSANALMALKI
+joining_the_battle.mp3 by G. ESTEVANUS OSCAR TOREH
 warning_map_is_null.mp3 by G. ESTEVANUS OSCAR TOREH
 win.mp3 by G. ESTEVANUS OSCAR TOREH
 Blastwave_FX_ExplosionCrash_S08WA.132.mp3 by FULL COPYRIGHT TO OWNER
+zapsplat_impacts_metal_hollow_cabinet_old_knock_hard_rattle_005_16664.mp3 by WWW.ZAPSPLAT.COM
 
 
 .FLP:
