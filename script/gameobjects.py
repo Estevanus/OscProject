@@ -530,7 +530,16 @@ def jetEngine(self):
 		#print([self.forwardVelocity, diakselerasi_local_y])
 		#maju = self.forwardSpeed
 		#force = self.forwardForce
-		v = self.akselerasi * (1.0 - vy / self.maxSpeed)
+		#v = self.akselerasi * (1.0 - vy / self.maxSpeed)#the old one, not perfect
+		df = vy ** 3 * (self.drag * self.plane_size_y * var.mapKonfigurasi['masaUdara']) / 2
+		watt = self.akselerasi * self.mass
+		v = (watt - df) / self.mass
+		#v = self.akselerasi
+		'''
+		if self == var.player:
+			cek = vy, self.maxSpeed, v, (watt - df) / self.mass
+			print(cek)
+		'''
 		
 		#vy += self.akselerasi
 		#self.forwardVelocity = oscmath.airResistance(vy*self.mass*1000, 1.25, 0.33, 1.8)
@@ -1723,7 +1732,9 @@ class KX_VehicleObject(bge.types.KX_GameObject):
 		self.drag = 0.02
 		if 'drag' in self:
 			self.drag = self['drag']
-		self.maxSpeed = oscmath.getMaxSpeed(self.akselerasi*self.mass*1000, var.mapKonfigurasi['masaUdara'], self.drag, self.plane_size_y)
+		if 'mass' in self:
+			self.mass = self['mass'] * 1000
+		self.maxSpeed = oscmath.getMaxSpeed(self.akselerasi*self.mass, var.mapKonfigurasi['masaUdara'], self.drag, self.plane_size_y)
 		
 		self.speedToPitch = 350 / 3.6#350km/s diubah ke meter/detik
 		self.speedToRoll = 350 / 3.6
