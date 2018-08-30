@@ -1,0 +1,5 @@
+7:51 30/08/2018
+changing to the gameobjects.py
+
+8:14 30/08/2018
+changing on FighterAlo.blend

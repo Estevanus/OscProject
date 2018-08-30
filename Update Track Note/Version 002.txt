@@ -1,0 +1,6 @@
+- Some changing to mainscript.py
+- some changing to gameobjects.py
+- Some changes to var.py
+
+- add previous project files (Air World Fighter) to this project
+- changes to maing game file
